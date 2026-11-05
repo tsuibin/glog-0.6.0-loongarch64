@@ -26,3 +26,8 @@ Doris 的 `thirdparty/patches/glog-0.6.0.patch` 给 glog 增加了两个配置�
 Doris 官方就是 `-DWITH_UNWIND=OFF`。
 
 （补充：本机系统自带 libunwind 1.8.2 且**带 loongarch64 后端**，符号齐全，Doris 的 `USE_UNWIND=ON` 其实也能靠系统库满足，只是 Doris 只去 thirdparty 目录找。）
+
+## 更新（2026-11-04）
+
+最终 BE 用打了 Doris 补丁、`-DWITH_UNWIND=OFF` 的这份 glog，`common/logconfig.cpp` 编译通过、链接 0 undefined symbol。
+`USE_UNWIND=OFF` 是 BE 的可回退裁剪项之一；系统自带 libunwind 1.8.2 带 loongarch64 后端，恢复 `USE_UNWIND=ON` 也可行。
